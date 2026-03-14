@@ -1,0 +1,14 @@
+[
+  {"seat_name": "华泰证券上海武定路", "player_alias": "佛山无影脚", "style": "打板"},
+  {"seat_name": "华鑫证券上海宛平南路", "player_alias": "华鑫系", "style": "打板"},
+  {"seat_name": "东方财富证券拉萨团结路第二", "player_alias": "拉萨天团", "style": "接力"},
+  {"seat_name": "东方财富证券拉萨东环路第二", "player_alias": "拉萨天团", "style": "接力"},
+  {"seat_name": "中国银河证券绍兴", "player_alias": "赵老哥", "style": "龙头"},
+  {"seat_name": "中信证券上海溧阳路", "player_alias": "溧阳路", "style": "打板"},
+  {"seat_name": "国泰君安上海江苏路", "player_alias": "章盟主", "style": "低吸"},
+  {"seat_name": "华泰证券成都南一环路第二", "player_alias": "成都系", "style": "打板"},
+  {"seat_name": "国盛证券宁波桑田路", "player_alias": "宁波桑田路", "style": "打板"},
+  {"seat_name": "华泰证券深圳益田路荣超商务中心", "player_alias": "深圳帮", "style": "打板"},
+  {"seat_name": "中信证券深圳总部", "player_alias": "中信深圳", "style": "机构"},
+  {"seat_name": "财通证券杭州上塘路", "player_alias": "杭州上塘路", "style": "打板"}
+]

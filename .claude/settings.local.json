@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(python --version 2>/dev/null; node --version 2>/dev/null; docker --version 2>/dev/null; npm --version 2>/dev/null)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs",
+      "WebSearch",
+      "Bash(python --version && python3 --version 2>/dev/null; where python)",
+      "Bash(cd \"D:/work/stud\" && python -c \"from src.data.models import DailyLimitUp, DailyEmotion, DragonTiger; print\\('Models OK'\\)\" 2>&1)",
+      "Bash(which python3:*)",
+      "Bash(cd \"D:/work/stud\" && py -c \"from src.data.models import DailyLimitUp, DailyEmotion, DragonTiger; print\\('Models OK'\\)\" 2>&1)",
+      "Bash(which uv:*)",
+      "Bash(cd \"D:/work/stud\" && uv sync 2>&1)",
+      "Bash(cd \"D:/work/stud\" && uv run python -c \"\nfrom src.data.models import DailyLimitUp, DailyEmotion, DragonTiger, DailyTheme\nfrom src.data.database import init_db\nfrom src.data.collector import DataCollector\nprint\\('All imports OK'\\)\ninit_db\\(\\)\nprint\\('Database initialized'\\)\n\" 2>&1)",
+      "Bash(cd \"D:/work/stud\" && uv run python -c \"\nfrom src.data.database import engine\nfrom sqlmodel import text\nwith engine.connect\\(\\) as conn:\n    tables = conn.execute\\(text\\(\\\\\"SELECT name FROM sqlite_master WHERE type='table'\\\\\"\\)\\).fetchall\\(\\)\n    print\\('Tables:', [t[0] for t in tables]\\)\n\" 2>&1)",
+      "Bash(cd \"D:/work/stud\" && uv run python -c \"\nfrom src.engine.limit_up import LimitUpEngine, BoardLadder, PromotionRates, LimitUpQuality\nfrom src.engine.emotion import EmotionEngine, EmotionSnapshot\nfrom src.engine.theme import ThemeEngine, ThemeSummary\nfrom src.engine.dragon_tiger import DragonTigerEngine, DragonTigerSummary\nfrom src.engine.recap import RecapEngine, RecapReport\nprint\\('All engine imports OK'\\)\n\" 2>&1)",
+      "Bash(cd \"D:/work/stud\" && timeout 8 uv run uvicorn src.api.main:app --host 127.0.0.1 --port 8000 2>&1 || true)",
+      "Bash(cd \"D:/work/stud\" && uv run uvicorn src.api.main:app --host 127.0.0.1 --port 8000 2>&1)",
+      "Bash(sleep 3 && curl -s http://127.0.0.1:8000/api/health 2>&1)",
+      "Bash(sleep 3 && curl -s \"http://127.0.0.1:8000/api/limit-up/today?date=2026-03-12\" 2>&1 | head -c 500)",
+      "Bash(curl -s \"http://127.0.0.1:8000/api/limit-up/ladder?date=2026-03-12\" 2>&1)",
+      "Bash(curl -s \"http://127.0.0.1:8000/api/dragon-tiger/players\" 2>&1 | head -c 400)",
+      "Bash(cd \"D:/work/stud/frontend\" && npm install 2>&1)",
+      "Bash(cd \"D:/work/stud/frontend\" && npx vite build 2>&1)",
+      "Bash(cd D:/work/stud && uv run python -c \"from src.api.main import app; print\\('OK - routes:', len\\(app.routes\\)\\)\")",
+      "Bash(cd D:/work/stud && uv run python -c \"\nfrom src.data.models import Watchlist, RecapTemplate\nfrom src.engine.backtest import BacktestEngine\nfrom src.data.repository import WatchlistRepository, RecapTemplateRepository\nprint\\('All imports OK'\\)\nprint\\('Models:', Watchlist.__tablename__, RecapTemplate.__tablename__\\)\n\")",
+      "Bash(cd D:/work/stud && uv run python -c \"\nfrom src.api.main import app\nfor r in app.routes:\n    if hasattr\\(r, 'methods'\\) and hasattr\\(r, 'path'\\) and 'theme' in r.path:\n        methods = ','.join\\(r.methods - {'HEAD', 'OPTIONS'}\\)\n        if methods:\n            print\\(f'{methods:6s} {r.path}'\\)\n\")",
+      "Bash(cd:*)",
+      "Bash(find:*)"
+    ]
+  }
+}

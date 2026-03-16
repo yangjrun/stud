@@ -87,6 +87,34 @@ export function runSignals(date) {
   return api.post('/signals/run', null, { params: { date } })
 }
 
+// 明日预测
+export function getForecast(date) {
+  return api.get('/signals/forecast', { params: { date } })
+}
+
+export function runForecast(date) {
+  return api.post('/signals/forecast/run', null, { params: { date } })
+}
+
+export function getForecastAccuracy(days = 30) {
+  return api.get('/signals/forecast/accuracy', { params: { days } })
+}
+
+// 预测回测
+export function runForecastBacktest(startDate, endDate) {
+  return api.post('/signals/backtest/run', null, {
+    params: { start_date: startDate, end_date: endDate },
+  })
+}
+
+export function getForecastBacktestHistory(limit = 10) {
+  return api.get('/signals/backtest/history', { params: { limit } })
+}
+
+export function getForecastBacktestDetail(runId) {
+  return api.get(`/signals/backtest/${runId}`)
+}
+
 // 交易日志
 export function getTrades(date) {
   return api.get('/journal/trades', { params: { date } })

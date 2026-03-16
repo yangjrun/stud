@@ -12,6 +12,7 @@
       <router-link to="/recap" class="nav-item" active-class="active">每日复盘</router-link>
       <div style="border-top: 1px solid #2a2d3a; margin: 8px 0;"></div>
       <router-link to="/signals" class="nav-item" active-class="active">信号引擎</router-link>
+      <router-link to="/backtest" class="nav-item" active-class="active">预测回测</router-link>
       <router-link to="/journal" class="nav-item" active-class="active">交易日志</router-link>
     </nav>
     <main class="content">

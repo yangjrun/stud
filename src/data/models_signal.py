@@ -71,3 +71,56 @@ class SellSignal(SQLModel, table=True):
     severity: str = Field(max_length=10)  # URGENT / WARN
     reason: Optional[str] = Field(default=None, max_length=500)
     confidence: int = Field(default=0)
+
+
+class ForecastSignal(SQLModel, table=True):
+    """明日预测总览 (市场级, 每天一行)"""
+
+    __tablename__ = "forecast_signal"
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    trade_date: date = Field(index=True)  # 被预测的日期 (明天)
+    source_date: date = Field(index=True)  # 生成预测时的日期 (今天)
+    # 门控预测
+    predicted_gate_result: str = Field(max_length=10)  # PASS / FAIL / CAUTION
+    predicted_gate_phase: Optional[str] = Field(default=None, max_length=10)
+    predicted_gate_score: Optional[int] = None
+    phase_transition: Optional[str] = Field(default=None, max_length=30)  # e.g. 修复->发酵
+    phase_transition_confidence: Optional[int] = None  # 0-100
+    # 梯队预测
+    predicted_echelon_count: int = Field(default=0)
+    predicted_top_echelon_name: Optional[str] = Field(default=None, max_length=50)
+    echelon_continuation_score: Optional[int] = None  # 0-100
+    # 候选数量
+    buy_candidate_count: int = Field(default=0)
+    sell_candidate_count: int = Field(default=0)
+    # 准确率 (次日回填)
+    accuracy_gate: Optional[int] = None  # 0-100
+    accuracy_candidates: Optional[float] = None  # 命中率 0-100
+
+
+class ForecastCandidate(SQLModel, table=True):
+    """明日预测候选标的"""
+
+    __tablename__ = "forecast_candidate"
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    trade_date: date = Field(index=True)  # 被预测的日期
+    source_date: date = Field(index=True)  # 生成日期
+    code: str = Field(max_length=10, index=True)
+    name: Optional[str] = Field(default=None, max_length=20)
+    forecast_type: str = Field(max_length=20)  # promotion / echelon_continuation / new_leader / sell_warning
+    predicted_board_position: Optional[str] = Field(default=None, max_length=20)  # e.g. 1->2
+    theme_name: Optional[str] = Field(default=None, max_length=50)
+    confidence: int = Field(default=0)  # 0-100
+    today_continuous_count: int = Field(default=1)
+    predicted_continuous_count: int = Field(default=1)
+    historical_promotion_rate: Optional[float] = None
+    theme_formation: Optional[str] = Field(default=None, max_length=20)
+    theme_completeness: Optional[int] = None
+    theme_consecutive_days: Optional[int] = None
+    rationale: Optional[str] = Field(default=None, max_length=500)
+    market_role: Optional[str] = Field(default=None, max_length=20)  # 龙头/二龙/三龙/跟风
+    tier: Optional[str] = Field(default=None, max_length=2)  # A/B/C 档位
+    # 实际结果 (次日回填)
+    actual_result: Optional[str] = Field(default=None, max_length=20)  # hit / miss / partial

@@ -8,6 +8,7 @@ const routes = [
   { path: '/dragon-tiger', name: 'DragonTiger', component: () => import('./views/DragonTigerView.vue') },
   { path: '/recap', name: 'Recap', component: () => import('./views/RecapView.vue') },
   { path: '/signals', name: 'Signals', component: () => import('./views/SignalView.vue') },
+  { path: '/backtest', name: 'Backtest', component: () => import('./views/BacktestView.vue') },
   { path: '/journal', name: 'Journal', component: () => import('./views/JournalView.vue') },
 ]
 

@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, nextTick } from 'vue'
 import * as echarts from 'echarts'
 import { getEmotionToday, getEmotionHistory } from '../api'
 
@@ -96,8 +96,6 @@ const scoreColor = computed(() => {
   if (s >= 30) return '#eab308'
   return '#22c55e'
 })
-
-import { computed } from 'vue'
 
 async function loadData() {
   loading.value = true

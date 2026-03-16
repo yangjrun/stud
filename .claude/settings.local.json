@@ -27,7 +27,12 @@
       "Bash(cd D:/work/stud && uv run python -c \"\nfrom src.data.models import Watchlist, RecapTemplate\nfrom src.engine.backtest import BacktestEngine\nfrom src.data.repository import WatchlistRepository, RecapTemplateRepository\nprint\\('All imports OK'\\)\nprint\\('Models:', Watchlist.__tablename__, RecapTemplate.__tablename__\\)\n\")",
       "Bash(cd D:/work/stud && uv run python -c \"\nfrom src.api.main import app\nfor r in app.routes:\n    if hasattr\\(r, 'methods'\\) and hasattr\\(r, 'path'\\) and 'theme' in r.path:\n        methods = ','.join\\(r.methods - {'HEAD', 'OPTIONS'}\\)\n        if methods:\n            print\\(f'{methods:6s} {r.path}'\\)\n\")",
       "Bash(cd:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(py:*)",
+      "mcp__ide__getDiagnostics"
     ]
   }
 }

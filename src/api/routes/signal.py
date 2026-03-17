@@ -1,9 +1,12 @@
 """信号引擎 API routes."""
 
+import logging
 from datetime import date, timedelta
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+
+logger = logging.getLogger(__name__)
 
 from src.api.deps import parse_date
 from src.data.database import get_session
@@ -378,6 +381,7 @@ def get_forecast(trade_date: date = Depends(parse_date)):
 @router.post("/forecast/run")
 def run_forecast(trade_date: date = Depends(parse_date)):
     """手动触发明日预测生成。"""
+    logger.info("Starting forecast run for trade_date=%s", trade_date)
     with get_session() as s:
         emo_repo = EmotionRepository(s)
         emotion = emo_repo.get_by_date(trade_date)
@@ -418,17 +422,28 @@ def run_forecast(trade_date: date = Depends(parse_date)):
         echelon_result = evaluate_echelons(limit_ups, themes)
 
         # 运行预测引擎
-        engine = ForecastEngine()
-        output = engine.run(
-            trade_date=trade_date,
-            emotion=emotion,
-            emotion_history=emotion_history,
-            echelons=echelon_result.echelons,
-            limit_ups=limit_ups,
-            positions=positions,
-            dt_seats_map=dt_seats_map,
-            burst_codes=burst_codes,
-        )
+        try:
+            logger.info("Creating ForecastEngine instance")
+            engine = ForecastEngine()
+            logger.info("Running forecast engine with %d limit_ups", len(limit_ups))
+            output = engine.run(
+                trade_date=trade_date,
+                emotion=emotion,
+                emotion_history=emotion_history,
+                echelons=echelon_result.echelons,
+                limit_ups=limit_ups,
+                positions=positions,
+                dt_seats_map=dt_seats_map,
+                burst_codes=burst_codes,
+            )
+            logger.info("Forecast engine completed successfully")
+        except Exception as e:
+            logger.error("Forecast engine failed: %s", str(e), exc_info=True)
+            return {
+                "error": f"预测引擎执行失败: {str(e)}",
+                "trade_date": str(trade_date),
+                "detail": str(e),
+            }
 
         # 持久化
         fc_repo = ForecastSignalRepository(s)

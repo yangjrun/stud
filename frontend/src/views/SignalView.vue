@@ -575,10 +575,16 @@ async function manualRun() {
 async function manualForecast() {
   forecasting.value = true
   try {
-    await runForecast(props.tradeDate)
+    console.log('Calling forecast API for date:', props.tradeDate)
+    const res = await runForecast(props.tradeDate)
+    console.log('Forecast API response:', res)
     await loadData()
+    alert('预测生成完成')
   } catch (e) {
-    alert('预测生成失败: ' + (e.response?.data?.detail || e.message))
+    console.error('Forecast error:', e)
+    const errorMsg = e.response?.data?.detail || e.response?.data?.error || e.message || '未知错误'
+    const fullError = `预测生成失败:\n${errorMsg}\n\n请检查:\n1. 是否已生成今日信号\n2. 是否配置了正确的 AI API\n3. 查看浏览器控制台获取更多信息`
+    alert(fullError)
   }
   forecasting.value = false
 }
